@@ -61,17 +61,17 @@ class User(BaseModel, db.Model):
     # 当前用户所发布的新闻
     news_list = db.relationship('News', backref='user', lazy='dynamic')
 
-    # 使用计算型属性来封装密码加密过程, 优点使用者操作方便
+    # 使用计算型属性来封装密码加密过程, 优点使用者操作方便 封装加密过程
     @property
     def password(self):
         raise AttributeError("明文密码不可取")
 
     @password.setter
-    def password(self, value):
+    def password(self, value):  # 加密
         # 对密码加密
         self.password_hash = generate_password_hash(value)
 
-    def check_password(self, password):
+    def check_password(self, password): # 校验
         """
         校验密码
         :param password: 用户输入的明文密码
