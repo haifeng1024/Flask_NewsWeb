@@ -1,4 +1,6 @@
 from datetime import timedelta
+
+import logging
 from redis import StrictRedis
 
 
@@ -19,10 +21,12 @@ class Config():
 # 针对不同的环境设置不同的配置信息（配置信息子类化）
 class DevelopmentConfig(Config):
     DEBUG = True    # 开发环境
+    LOG_LEVEL = logging.DEBUG   # 配置日志等级
 
 
 class ProductConfig(Config):
     DEBUG = False   # 生产环境
+    LOG_LEVEL = logging.ERROR
 
 config_dict = {
     "pro":ProductConfig,
