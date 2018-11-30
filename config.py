@@ -1,9 +1,9 @@
-# 专门保存配置
 from datetime import timedelta
 from redis import StrictRedis
 
 
-class Config:  # 封装应用的所有配置
+# 封装所有配置
+class Config():
     DEBUG = True  # 开启调试模式
     SQLALCHEMY_DATABASE_URI = "mysql://root:mysql@127.0.0.1:3306/info24"  # 数据库连接地址
     SQLALCHEMY_TRACK_MODIFICATIONS = False  # 是否追踪数据库变化
@@ -16,15 +16,15 @@ class Config:  # 封装应用的所有配置
     PERMANENT_SESSION_LIFETIME = timedelta(days=7)  # 设置session过期时间, 默认就支持设置过期时间
 
 
-# 针对不同的环境设置不同的配置信息(配置子类化)
-class DevelopmentConfig(Config):  # 开发环境配置
-    DEBUG = True
+# 针对不同的环境设置不同的配置信息（配置信息子类化）
+class DevelopmentConfig(Config):
+    DEBUG = True    # 开发环境
 
 
-class ProductConfig(Config):  # 生产环境配置
-    DEBUG = False
+class ProductConfig(Config):
+    DEBUG = False   # 生产环境
 
 config_dict = {
-    "pro": ProductConfig,
-    "dev": DevelopmentConfig
+    "pro":ProductConfig,
+    "dev":DevelopmentConfig
 }
