@@ -6,7 +6,9 @@ from redis import StrictRedis
 
 from config import config_dict
 
-
+# 定义数据库操作全局变量
+db = None   # type:SQLAlchemy
+sr = None   # type:StrictRedis
 
 def create_app(config_type):    # 工厂函数，外界提供物料，函数内部封装对象创建过程
     """
@@ -20,6 +22,9 @@ def create_app(config_type):    # 工厂函数，外界提供物料，函数内�
     app = Flask(__name__)
     # 从对象中加载配置
     app.config.from_object(config_class)
+
+    # 声明迁居变量
+    global db, sr
     # 创建数据库操作对象
     db = SQLAlchemy(app)
     # 创建redis操作对象
