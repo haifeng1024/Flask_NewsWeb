@@ -51,12 +51,17 @@ def create_app(config_type):    # 工厂函数，外界提供物料，函数内�
     # 初始化迁移器
     Migrate(app, db)
 
-    # 注册蓝图
+    # 注册home蓝图
     from info.modules.home import home_blu
     app.register_blueprint(home_blu)
+    # 注册passport蓝图
+    from info.modules.passport import pass_blu
+    app.register_blueprint(pass_blu)
 
     # 导入模型文件内容
     import info.models
+
+
 
 
 
